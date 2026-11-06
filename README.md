@@ -8,17 +8,19 @@
 | Student ID | Full Name | GitHub Username |
 |------------|-----------|----------------|
 | 1240016877 | 黄旻烨 | @mibugi127 |
-| 1240021797 | 刘莆| @liupu006 |
-| 1240017218 | 黄锦晨 | @LeoH321 |
+| 1240021797 | 刘莆 | @liupu006 |
+| 1240017218 | 黄锦晨| @LeoH321 |
 | 1240036451 | 谭蕊 | @TANRUI94 |
 
 ## Project Overview
 This project aims to reproduce core performance and bug-detection claims from the AddressSanitizer ATC 2012 paper.
 
-## Claims Under Test (Initial Plan)
-*(To be refined after paper reading)*
-- **Claim 1 (Detection):** ASAN detects heap/stack/global buffer overflow, use-after-free, and double-free. (Ref: Paper Section 3 / Table 1)
-- **Claim 2 (Performance):** ASAN incurs an average slowdown of ~2x (73% overhead) compared to uninstrumented code. (Ref: Paper Section 4 / Table 2)
+## Claims Under Test (Based on Plan B)
+*According to the requirements, each claim is strictly linked to a table or figure in the paper.*
+
+- **Claim 1 (C1 - Runtime Performance):** ASAN incurs an average runtime slowdown of 73% compared to uninstrumented code. *(Ref: Paper Figure 2)*
+- **Claim 2 (C2 - Memory Overhead):** ASAN incurs an average memory increase of 3.37x. *(Ref: Paper Table 1)*
+- **Claim 3 (C3 - Stack Performance):** Stack memory usage is largely unaffected by ASAN. Out of 18 benchmarks, only 6 show obvious changes, and only 3 exceed a 10% increase. *(Ref: Paper Table 2)*
 
 ## Repository Information
 - Starting code / reference: LLVM/Clang AddressSanitizer implementation (stock `-fsanitize=address`)
