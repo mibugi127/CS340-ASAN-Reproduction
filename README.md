@@ -9,8 +9,8 @@
 |------------|-----------|----------------|
 | 1240016877 | 黄旻烨 | @mibugi127 |
 | 1240021797 | 刘莆 | @liupu006 |
-| 1240017218 | 黄锦晨| @LeoH321 |
-| 1240036451 | 谭蕊 | @TANRUI94 |
+| 1240017218 | 黄锦晨 | @LeoH321 |
+| 1240036451 | 谭蕊| @TANRUI94 |
 
 ## Project Overview
 This project aims to reproduce core performance and bug-detection claims from the AddressSanitizer ATC 2012 paper.
@@ -35,6 +35,7 @@ This project aims to reproduce core performance and bug-detection claims from th
 - `gcc` (optional)
 - `make` / `cmake`
 - Git
+- Docker (Optional, for cross-platform consistency)
 
 ### Tested Environment
 - Operating System: macOS 26.6.2 (Build 25G83)
