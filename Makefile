@@ -7,7 +7,7 @@ BUILD_DIR = build
 
 BUGS_SRCS = $(wildcard $(EXP_DIR)/bugs/*.c)
 PERF_SRCS = $(wildcard $(EXP_DIR)/perf/*.c)
-STACK_SRC = $(EXP_DIR)/stack_probe.c
+STACK_SRC = $(EXP_DIR)/perf/stack_probe.c
 
 BUGS_BINS = $(patsubst $(EXP_DIR)/bugs/%.c, $(BUILD_DIR)/bugs/%, $(BUGS_SRCS))
 PERF_BINS = $(patsubst $(EXP_DIR)/perf/%.c, $(BUILD_DIR)/perf/%, $(PERF_SRCS))
