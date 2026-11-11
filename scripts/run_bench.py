@@ -1,41 +1,79 @@
-import subprocess
-import time
-import resource
+import csv
 import os
+import subprocess
+import sys
 
-# 要测试的性能程序
-benchmarks = ["loop", "matrix", "sort"]
+BENCHMARKS = ["loop", "matrix", "sort"]
+WARMUP = 1
+RUNS = 3
 
-# 准备 results 文件夹
 os.makedirs("results", exist_ok=True)
 
-with open("results/log_perf_3runs.txt", "w") as log_file:
-    def log(msg):
-        print(msg)
-        log_file.write(msg + "\n")
+rows = []
 
-    log("=== C1 & C2 Benchmark Results (3 Runs) ===\n")
 
-    for bench in benchmarks:
-        asan_bin = f"./build/perf/{bench}"
-        base_bin = f"./build/perf_base/{bench}_base"
+def measure(binary):
+    out = subprocess.check_output(
+        [sys.executable, "scripts/time_run.py", binary], text=True
+    ).strip()
+    sec, rss = out.split(",")
+    return float(sec), float(rss)
 
-        log(f"--- Benchmark: {bench} ---")
 
-        for i in range(1, 4):
-            start = time.time()
-            subprocess.run([base_bin], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            base_time = time.time() - start
-            base_mem = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / (1024 * 1024)
+for bench in BENCHMARKS:
+    asan_bin = os.path.join("build", "perf", bench)
+    base_bin = os.path.join("build", "perf_base", bench + "_base")
 
-            start = time.time()
-            subprocess.run([asan_bin], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            asan_time = time.time() - start
-            asan_mem = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / (1024 * 1024)
+    for _ in range(WARMUP):
+        measure(base_bin)
+        measure(asan_bin)
 
-            log(f"Run {i}:")
-            log(f"  [Base] Time: {base_time:.3f}s | Mem: {base_mem:.2f} MB")
-            log(f"  [ASan] Time: {asan_time:.3f}s | Mem: {asan_mem:.2f} MB")
-            log(f"  --> Slowdown: {asan_time/base_time:.2f}x | Mem Overhead: {asan_mem/base_mem:.2f}x\n")
+    print("--- %s ---" % bench)
+    for i in range(1, RUNS + 1):
+        tb, mb = measure(base_bin)
+        ta, ma = measure(asan_bin)
+        rows.append((bench, "base", i, tb, mb))
+        rows.append((bench, "asan", i, ta, ma))
+        print("  run %d: base %.4fs %.0fkB | asan %.4fs %.0fkB | %.2fx %.2fx"
+              % (i, tb, mb, ta, ma, ta / tb, ma / mb))
 
-print("数据已成功保存到 results/log_perf_3runs.txt")
+with open(os.path.join("results", "timing.csv"), "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["program", "mode", "run", "seconds", "maxrss_kb"])
+    w.writerows(rows)
+
+heap_rows = []
+heap_base = os.path.join("build", "perf_base", "heap_base")
+heap_asan = os.path.join("build", "perf", "heap")
+
+if os.path.exists(heap_base) and os.path.exists(heap_asan):
+    for _ in range(WARMUP):
+        measure(heap_base)
+        measure(heap_asan)
+    print("--- heap (memory experiment) ---")
+    for i in range(1, RUNS + 1):
+        tb, mb = measure(heap_base)
+        ta, ma = measure(heap_asan)
+        heap_rows.append((i, tb, mb, ta, ma))
+        print("  run %d: base %.0fkB | asan %.0fkB | %.2fx" % (i, mb, ma, ma / mb))
+    with open(os.path.join("results", "heap.csv"), "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["run", "base_seconds", "base_rss_kb", "asan_seconds", "asan_rss_kb"])
+        w.writerows(heap_rows)
+
+
+def vmstk(binary):
+    out = subprocess.check_output([binary], text=True).strip()
+    return out.split("=")[-1]
+
+
+base_stk = vmstk(os.path.join("build", "perf_base", "stack_probe_base"))
+asan_stk = vmstk(os.path.join("build", "perf", "stack_probe"))
+
+with open(os.path.join("results", "stack.csv"), "w") as f:
+    f.write("mode,vmstk_kb\n")
+    f.write("base,%s\n" % base_stk)
+    f.write("asan,%s\n" % asan_stk)
+
+print("VmStk: base=%s kB asan=%s kB" % (base_stk, asan_stk))
+print("raw data written to results/timing.csv, results/heap.csv, results/stack.csv")

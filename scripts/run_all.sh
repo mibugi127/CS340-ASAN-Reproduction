@@ -3,6 +3,8 @@
 # Exit immediately if a command exits with a non-zero status
 set -e
 
+export ASAN_OPTIONS=detect_leaks=0
+
 echo "======================================"
 echo "🚀 Starting Automated ASan Benchmark & Detection Tests"
 echo "======================================"

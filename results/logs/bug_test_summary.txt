@@ -1,0 +1,764 @@
+Running build/bugs/double_free...
+=================================================================
+==2568==ERROR: AddressSanitizer: attempting double-free on 0x738b249e0010 in thread T0:
+==2568==WARNING: invalid path to external symbolizer!
+==2568==WARNING: Failed to use and restart external symbolizer!
+    #0 0x60f43fae966a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x60f43fb2daef  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115aef) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x776b2562a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x776b2562a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x60f43fa44364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+0x738b249e0010 is located 0 bytes inside of 4-byte region [0x738b249e0010,0x738b249e0014)
+freed by thread T0 here:
+    #0 0x60f43fae966a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x60f43fb2dada  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ada) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x776b2562a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x776b2562a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x60f43fa44364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+previously allocated by thread T0 here:
+    #0 0x60f43fae9908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd1908) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x60f43fb2dac1  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ac1) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x776b2562a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x776b2562a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x60f43fa44364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+SUMMARY: AddressSanitizer: double-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165) 
+==2568==ABORTING
+Running build/bugs/overflow...
+=================================================================
+==2569==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x71d7111e0060 at pc 0x571b95a45d38 bp 0x7ffe6d9f9780 sp 0x7ffe6d9f9778
+WRITE of size 4 at 0x71d7111e0060 thread T0
+==2569==WARNING: invalid path to external symbolizer!
+==2569==WARNING: Failed to use and restart external symbolizer!
+    #0 0x571b95a45d37  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x75971202a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x75971202a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x571b9595c364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+0x71d7111e0060 is located 40 bytes after 40-byte region [0x71d7111e0010,0x71d7111e0038)
+allocated by thread T0 here:
+    #0 0x571b95a01908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0xd1908) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x571b95a45abf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115abf) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #2 0x75971202a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x75971202a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x571b9595c364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c) 
+Shadow bytes around the buggy address:
+  0x71d7111dfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71d7111dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71d7111dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71d7111dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x71d7111dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x71d7111e0000: fa fa 00 00 00 00 00 fa fa fa fa fa[fa]fa fa fa
+  0x71d7111e0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x71d7111e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x71d7111e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x71d7111e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x71d7111e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2569==ABORTING
+Running build/bugs/stack_overflow...
+=================================================================
+==2570==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x781b5c300024 at pc 0x61cc863ca7f9 bp 0x7ffd4cf68bd0 sp 0x7ffd4cf683a0
+WRITE of size 10 at 0x781b5c300024 thread T0
+==2570==WARNING: invalid path to external symbolizer!
+==2570==WARNING: Failed to use and restart external symbolizer!
+    #0 0x61cc863ca7f8  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #1 0x61cc86410c66  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115c66) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #2 0x7c1b5e42a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7c1b5e42a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x61cc86327364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x2c364) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+Address 0x781b5c300024 is located in stack of thread T0 at offset 36 in frame
+    #0 0x61cc86410bcf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115bcf) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+  This frame has 1 object(s):
+    [32, 36) 'buffer' (line 5) <== Memory access at offset 36 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad) 
+Shadow bytes around the buggy address:
+  0x781b5c2ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c2ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c2ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c2fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c2fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x781b5c300000: f1 f1 f1 f1[04]f3 f3 f3 00 00 00 00 00 00 00 00
+  0x781b5c300080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c300100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c300180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c300200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x781b5c300280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2570==ABORTING
+Running build/bugs/use_after_free...
+=================================================================
+==2571==ERROR: AddressSanitizer: heap-use-after-free on address 0x6d928d5e0010 at pc 0x55ca8cf16b20 bp 0x7ffc778bda90 sp 0x7ffc778bda88
+READ of size 4 at 0x6d928d5e0010 thread T0
+==2571==WARNING: invalid path to external symbolizer!
+==2571==WARNING: Failed to use and restart external symbolizer!
+    #0 0x55ca8cf16b1f  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x71728e22a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x71728e22a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x55ca8ce2d364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+0x6d928d5e0010 is located 0 bytes inside of 4-byte region [0x6d928d5e0010,0x6d928d5e0014)
+freed by thread T0 here:
+    #0 0x55ca8ced266a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd166a) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x55ca8cf16ae4  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ae4) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x71728e22a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x71728e22a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x55ca8ce2d364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+previously allocated by thread T0 here:
+    #0 0x55ca8ced2908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd1908) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x55ca8cf16ac0  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ac0) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x71728e22a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x71728e22a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x55ca8ce2d364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a) 
+Shadow bytes around the buggy address:
+  0x6d928d5dfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6d928d5dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6d928d5dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6d928d5dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6d928d5dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x6d928d5e0000: fa fa[fd]fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6d928d5e0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6d928d5e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6d928d5e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6d928d5e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x6d928d5e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2571==ABORTING
+Running build/bugs/double_free...
+=================================================================
+==2725==ERROR: AddressSanitizer: attempting double-free on 0x77e4bd7e0010 in thread T0:
+==2725==WARNING: invalid path to external symbolizer!
+==2725==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5b2df251d66a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x5b2df2561aef  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115aef) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x7bc4be42a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7bc4be42a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5b2df2478364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+0x77e4bd7e0010 is located 0 bytes inside of 4-byte region [0x77e4bd7e0010,0x77e4bd7e0014)
+freed by thread T0 here:
+    #0 0x5b2df251d66a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x5b2df2561ada  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ada) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x7bc4be42a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7bc4be42a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5b2df2478364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+previously allocated by thread T0 here:
+    #0 0x5b2df251d908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd1908) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x5b2df2561ac1  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ac1) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x7bc4be42a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7bc4be42a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5b2df2478364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+SUMMARY: AddressSanitizer: double-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165) 
+==2725==ABORTING
+Running build/bugs/overflow...
+=================================================================
+==2726==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x7322f8be0060 at pc 0x56b84fcd8d38 bp 0x7ffe21b477e0 sp 0x7ffe21b477d8
+WRITE of size 4 at 0x7322f8be0060 thread T0
+==2726==WARNING: invalid path to external symbolizer!
+==2726==WARNING: Failed to use and restart external symbolizer!
+    #0 0x56b84fcd8d37  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x76e2f9a2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x76e2f9a2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x56b84fbef364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+0x7322f8be0060 is located 40 bytes after 40-byte region [0x7322f8be0010,0x7322f8be0038)
+allocated by thread T0 here:
+    #0 0x56b84fc94908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0xd1908) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x56b84fcd8abf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115abf) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #2 0x76e2f9a2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x76e2f9a2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x56b84fbef364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c) 
+Shadow bytes around the buggy address:
+  0x7322f8bdfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7322f8bdfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7322f8bdfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7322f8bdff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7322f8bdff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7322f8be0000: fa fa 00 00 00 00 00 fa fa fa fa fa[fa]fa fa fa
+  0x7322f8be0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7322f8be0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7322f8be0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7322f8be0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7322f8be0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2726==ABORTING
+Running build/bugs/stack_overflow...
+=================================================================
+==2727==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x6cbb38d00024 at pc 0x63c2560467f9 bp 0x7ffd72f72c10 sp 0x7ffd72f723e0
+WRITE of size 10 at 0x6cbb38d00024 thread T0
+==2727==WARNING: invalid path to external symbolizer!
+==2727==WARNING: Failed to use and restart external symbolizer!
+    #0 0x63c2560467f8  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #1 0x63c25608cc66  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115c66) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #2 0x70bb3ae2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x70bb3ae2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x63c255fa3364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x2c364) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+Address 0x6cbb38d00024 is located in stack of thread T0 at offset 36 in frame
+    #0 0x63c25608cbcf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115bcf) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+  This frame has 1 object(s):
+    [32, 36) 'buffer' (line 5) <== Memory access at offset 36 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad) 
+Shadow bytes around the buggy address:
+  0x6cbb38cffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38cffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38cffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38cfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38cfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x6cbb38d00000: f1 f1 f1 f1[04]f3 f3 f3 00 00 00 00 00 00 00 00
+  0x6cbb38d00080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38d00100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38d00180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38d00200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x6cbb38d00280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2727==ABORTING
+Running build/bugs/use_after_free...
+=================================================================
+==2728==ERROR: AddressSanitizer: heap-use-after-free on address 0x76a1ec7e0010 at pc 0x60ee7e380b20 bp 0x7ffe746b63c0 sp 0x7ffe746b63b8
+READ of size 4 at 0x76a1ec7e0010 thread T0
+==2728==WARNING: invalid path to external symbolizer!
+==2728==WARNING: Failed to use and restart external symbolizer!
+    #0 0x60ee7e380b1f  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x7a81ed42a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x7a81ed42a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x60ee7e297364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+0x76a1ec7e0010 is located 0 bytes inside of 4-byte region [0x76a1ec7e0010,0x76a1ec7e0014)
+freed by thread T0 here:
+    #0 0x60ee7e33c66a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd166a) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x60ee7e380ae4  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ae4) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x7a81ed42a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7a81ed42a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x60ee7e297364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+previously allocated by thread T0 here:
+    #0 0x60ee7e33c908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd1908) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x60ee7e380ac0  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ac0) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x7a81ed42a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7a81ed42a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x60ee7e297364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a) 
+Shadow bytes around the buggy address:
+  0x76a1ec7dfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a1ec7dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a1ec7dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a1ec7dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76a1ec7dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x76a1ec7e0000: fa fa[fd]fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76a1ec7e0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76a1ec7e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76a1ec7e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76a1ec7e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76a1ec7e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2728==ABORTING
+Running build/bugs/double_free...
+=================================================================
+==2914==ERROR: AddressSanitizer: attempting double-free on 0x7432ecde0010 in thread T0:
+==2914==WARNING: invalid path to external symbolizer!
+==2914==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5be83d39f66a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x5be83d3e3aef  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115aef) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x7812eda2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7812eda2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5be83d2fa364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+0x7432ecde0010 is located 0 bytes inside of 4-byte region [0x7432ecde0010,0x7432ecde0014)
+freed by thread T0 here:
+    #0 0x5be83d39f66a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x5be83d3e3ada  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ada) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x7812eda2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7812eda2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5be83d2fa364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+previously allocated by thread T0 here:
+    #0 0x5be83d39f908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd1908) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x5be83d3e3ac1  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ac1) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x7812eda2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7812eda2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5be83d2fa364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+SUMMARY: AddressSanitizer: double-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165) 
+==2914==ABORTING
+Running build/bugs/overflow...
+=================================================================
+==2915==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x794f62be0060 at pc 0x5cd2e109ed38 bp 0x7ffdab63a670 sp 0x7ffdab63a668
+WRITE of size 4 at 0x794f62be0060 thread T0
+==2915==WARNING: invalid path to external symbolizer!
+==2915==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5cd2e109ed37  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x7d0f63a2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x7d0f63a2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x5cd2e0fb5364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+0x794f62be0060 is located 40 bytes after 40-byte region [0x794f62be0010,0x794f62be0038)
+allocated by thread T0 here:
+    #0 0x5cd2e105a908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0xd1908) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x5cd2e109eabf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115abf) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #2 0x7d0f63a2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7d0f63a2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5cd2e0fb5364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c) 
+Shadow bytes around the buggy address:
+  0x794f62bdfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x794f62bdfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x794f62bdfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x794f62bdff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x794f62bdff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x794f62be0000: fa fa 00 00 00 00 00 fa fa fa fa fa[fa]fa fa fa
+  0x794f62be0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x794f62be0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x794f62be0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x794f62be0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x794f62be0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2915==ABORTING
+Running build/bugs/stack_overflow...
+=================================================================
+==2916==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7022dfd00024 at pc 0x5a4594b1b7f9 bp 0x7fff9abb7770 sp 0x7fff9abb6f40
+WRITE of size 10 at 0x7022dfd00024 thread T0
+==2916==WARNING: invalid path to external symbolizer!
+==2916==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5a4594b1b7f8  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #1 0x5a4594b61c66  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115c66) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #2 0x7422e1e2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7422e1e2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5a4594a78364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x2c364) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+Address 0x7022dfd00024 is located in stack of thread T0 at offset 36 in frame
+    #0 0x5a4594b61bcf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115bcf) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+  This frame has 1 object(s):
+    [32, 36) 'buffer' (line 5) <== Memory access at offset 36 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad) 
+Shadow bytes around the buggy address:
+  0x7022dfcffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfcffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfcffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfcfff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfcfff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7022dfd00000: f1 f1 f1 f1[04]f3 f3 f3 00 00 00 00 00 00 00 00
+  0x7022dfd00080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfd00100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfd00180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfd00200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7022dfd00280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2916==ABORTING
+Running build/bugs/use_after_free...
+=================================================================
+==2917==ERROR: AddressSanitizer: heap-use-after-free on address 0x79ddca1e0010 at pc 0x619bde61cb20 bp 0x7ffdbf346de0 sp 0x7ffdbf346dd8
+READ of size 4 at 0x79ddca1e0010 thread T0
+==2917==WARNING: invalid path to external symbolizer!
+==2917==WARNING: Failed to use and restart external symbolizer!
+    #0 0x619bde61cb1f  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x7dbdcae2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x7dbdcae2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x619bde533364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+0x79ddca1e0010 is located 0 bytes inside of 4-byte region [0x79ddca1e0010,0x79ddca1e0014)
+freed by thread T0 here:
+    #0 0x619bde5d866a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd166a) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x619bde61cae4  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ae4) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x7dbdcae2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7dbdcae2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x619bde533364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+previously allocated by thread T0 here:
+    #0 0x619bde5d8908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd1908) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x619bde61cac0  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ac0) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x7dbdcae2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7dbdcae2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x619bde533364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a) 
+Shadow bytes around the buggy address:
+  0x79ddca1dfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79ddca1dfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79ddca1dfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79ddca1dff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x79ddca1dff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x79ddca1e0000: fa fa[fd]fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x79ddca1e0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x79ddca1e0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x79ddca1e0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x79ddca1e0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x79ddca1e0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==2917==ABORTING
+Running build/bugs/double_free...
+=================================================================
+==3200==ERROR: AddressSanitizer: attempting double-free on 0x740cb9be0010 in thread T0:
+==3200==WARNING: invalid path to external symbolizer!
+==3200==WARNING: Failed to use and restart external symbolizer!
+    #0 0x55bb4c8f066a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x55bb4c934aef  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115aef) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x77ecba82a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x77ecba82a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x55bb4c84b364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+0x740cb9be0010 is located 0 bytes inside of 4-byte region [0x740cb9be0010,0x740cb9be0014)
+freed by thread T0 here:
+    #0 0x55bb4c8f066a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x55bb4c934ada  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ada) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x77ecba82a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x77ecba82a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x55bb4c84b364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+previously allocated by thread T0 here:
+    #0 0x55bb4c8f0908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd1908) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #1 0x55bb4c934ac1  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x115ac1) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+    #2 0x77ecba82a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x77ecba82a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x55bb4c84b364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0x2c364) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165)
+
+SUMMARY: AddressSanitizer: double-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/double_free+0xd166a) (BuildId: 9908dae67417598e61d46e09b64563e6489ba165) 
+==3200==ABORTING
+Running build/bugs/overflow...
+=================================================================
+==3201==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x76bd44be0060 at pc 0x598de8ac5d38 bp 0x7ffe2da47590 sp 0x7ffe2da47588
+WRITE of size 4 at 0x76bd44be0060 thread T0
+==3201==WARNING: invalid path to external symbolizer!
+==3201==WARNING: Failed to use and restart external symbolizer!
+    #0 0x598de8ac5d37  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x7a7d45a2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x7a7d45a2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x598de89dc364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+0x76bd44be0060 is located 40 bytes after 40-byte region [0x76bd44be0010,0x76bd44be0038)
+allocated by thread T0 here:
+    #0 0x598de8a81908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0xd1908) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #1 0x598de8ac5abf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115abf) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+    #2 0x7a7d45a2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x7a7d45a2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x598de89dc364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x2c364) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/overflow+0x115d37) (BuildId: 45e7c89321615226597816c318bc4fc215dad46c) 
+Shadow bytes around the buggy address:
+  0x76bd44bdfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd44bdfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd44bdfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd44bdff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x76bd44bdff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x76bd44be0000: fa fa 00 00 00 00 00 fa fa fa fa fa[fa]fa fa fa
+  0x76bd44be0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76bd44be0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76bd44be0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76bd44be0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x76bd44be0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==3201==ABORTING
+Running build/bugs/stack_overflow...
+=================================================================
+==3202==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x74e56d500024 at pc 0x585dc75677f9 bp 0x7fffc6f468d0 sp 0x7fffc6f460a0
+WRITE of size 10 at 0x74e56d500024 thread T0
+==3202==WARNING: invalid path to external symbolizer!
+==3202==WARNING: Failed to use and restart external symbolizer!
+    #0 0x585dc75677f8  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #1 0x585dc75adc66  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115c66) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+    #2 0x78e56f62a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x78e56f62a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x585dc74c4364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x2c364) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+Address 0x74e56d500024 is located in stack of thread T0 at offset 36 in frame
+    #0 0x585dc75adbcf  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0x115bcf) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad)
+
+  This frame has 1 object(s):
+    [32, 36) 'buffer' (line 5) <== Memory access at offset 36 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/stack_overflow+0xcf7f8) (BuildId: ad86ee3ef9df2ab9ebcf5d0e48d49296168c79ad) 
+Shadow bytes around the buggy address:
+  0x74e56d4ffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d4ffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d4ffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d4fff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d4fff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x74e56d500000: f1 f1 f1 f1[04]f3 f3 f3 00 00 00 00 00 00 00 00
+  0x74e56d500080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d500100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d500180: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d500200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x74e56d500280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==3202==ABORTING
+Running build/bugs/use_after_free...
+=================================================================
+==3203==ERROR: AddressSanitizer: heap-use-after-free on address 0x72b967fe0010 at pc 0x5cdd8a1fdb20 bp 0x7ffe3acf4830 sp 0x7ffe3acf4828
+READ of size 4 at 0x72b967fe0010 thread T0
+==3203==WARNING: invalid path to external symbolizer!
+==3203==WARNING: Failed to use and restart external symbolizer!
+    #0 0x5cdd8a1fdb1f  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x769968c2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #2 0x769968c2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x5cdd8a114364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+0x72b967fe0010 is located 0 bytes inside of 4-byte region [0x72b967fe0010,0x72b967fe0014)
+freed by thread T0 here:
+    #0 0x5cdd8a1b966a  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd166a) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x5cdd8a1fdae4  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ae4) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x769968c2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x769968c2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5cdd8a114364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+previously allocated by thread T0 here:
+    #0 0x5cdd8a1b9908  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0xd1908) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #1 0x5cdd8a1fdac0  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115ac0) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+    #2 0x769968c2a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #3 0x769968c2a717  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #4 0x5cdd8a114364  (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x2c364) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a)
+
+SUMMARY: AddressSanitizer: heap-use-after-free (/mnt/d/github/CS340-ASAN-Reproduction/build/bugs/use_after_free+0x115b1f) (BuildId: e94b21d16bda01933e709a98b016c6e162d0924a) 
+Shadow bytes around the buggy address:
+  0x72b967fdfd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x72b967fdfe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x72b967fdfe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x72b967fdff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x72b967fdff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x72b967fe0000: fa fa[fd]fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x72b967fe0080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x72b967fe0100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x72b967fe0180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x72b967fe0200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x72b967fe0280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==3203==ABORTING
