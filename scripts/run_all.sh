@@ -1,27 +1,31 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Exit immediately if a command exits with a non-zero status
 set -e
 
-mkdir -p results
+echo "======================================"
+echo "🚀 Starting Automated ASan Benchmark & Detection Tests"
+echo "======================================"
+
+echo "🧹 Cleaning old files and compiling ASan & Baseline versions..."
+make clean
 make
 make base
 
-echo "== bug demos =="
+echo "🐛 Running Bug Detection Tests..."
+mkdir -p results/logs
 for b in build/bugs/*; do
-    echo "--- $b"
-    "$b" 2>&1 | head -5 || true
+    echo "Running $b..." >> results/logs/bug_test_summary.txt
+    "$b" > /dev/null 2>> results/logs/bug_test_summary.txt || true
 done
+echo "✅ Bug detection finished. Logs saved to results/logs/bug_test_summary.txt"
 
-echo "== perf benchmarks (ASan vs Base) =="
-for b in build/perf/*; do
-    [ -f "$b" ] || continue
-    name=$(basename "$b")
-    base_bin="build/perf_base/${name}_base"
-    
-    echo "--- $name (ASan) ---"
-    /usr/bin/time -f "%e s, %M KB" "$b" > /dev/null || true
-    
-    if [ -f "$base_bin" ]; then
-        echo "--- $name (Base) ---"
-        /usr/bin/time -f "%e s, %M KB" "$base_bin" > /dev/null || true
-    fi
-done
+echo "⏱️ Running performance benchmarks (C1 & C2)..."
+python3 scripts/run_bench.py
+
+echo "📊 Processing data, generating CSV and Markdown tables..."
+python3 scripts/analyze.py
+
+echo "======================================"
+echo "🎉 All tests completed! Check the results/ folder for data."
+echo "======================================"
