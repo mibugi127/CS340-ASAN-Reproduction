@@ -1,8 +1,15 @@
 #include <stdio.h>
+#include <string.h>
 
-int main(void) {
-    volatile int a[4];
-    a[4] = 1;
-    printf("%d\n", a[4]);
+void cause_stack_overflow() {
+    char buffer[4];
+    
+    memset(buffer, 'A', 10);
+    
+    printf("Buffer: %s\n", buffer);
+}
+
+int main() {
+    cause_stack_overflow();
     return 0;
 }
