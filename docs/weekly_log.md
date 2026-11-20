@@ -75,3 +75,17 @@ During the initial verification, we encountered two major environment-specific i
     measurable memory ratio.
 *   Write the "Analysis of discrepancies" section (micro-benchmarks vs SPEC,
     RSS vs virtual shadow memory, platform differences).
+    
+## Week 3 (Nov 16 - Nov 22, 2026)
+
+### 1. Finalizing Documentation and Artifacts
+*   **Charts:** Created `scripts/plot_overhead.py` and generated the performance overhead bar chart (`docs/figures/overhead_bar.png`) comparing Paper vs. Ours using Mean ± SD data.
+*   **Tables:** Created `docs/results_tables.md` to summarize the C1, C2, and C3 data in a standard format.
+*   **Analysis:** Wrote `docs/analysis_discrepancies.md` explaining why our data differs from the paper (micro-benchmarks vs. SPEC, RSS vs. shadow memory, macOS vs. Linux).
+*   **Raw Logs:** Restored and formatted the raw performance test logs (`results/logs/log_perf_3runs.txt`) and stack memory logs (`results/logs/log_stack.txt`).
+*   **Repository Structure:** Updated `README.md` to explicitly list the locations of artifacts and bug detection screenshots. Verified that 4 ASan bug screenshots are stored in `docs/images/`.
+
+### 2. Final Review & Release
+*   Verified that the entire pipeline runs smoothly from a clean state.
+*   Checked all Git commit messages follow the `[StudentID Name]` format.
+*   Tagged the final repository as **v1.0** (Pending).
