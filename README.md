@@ -24,9 +24,14 @@ This project aims to reproduce core performance and bug-detection claims from th
 
 ## Repository Information
 - Starting code / reference: LLVM/Clang AddressSanitizer implementation (stock `-fsanitize=address`)
-- Recorded original commit: **To be filled** (if modified)
-- List of modified files: **To be filled**
+- Recorded original commit: N/A (Using stock compiler instrumentation)
+- List of modified files: See `scripts/`, `experiments/`, and `results/` directories
 
+## 📂 Artifacts and Screenshots
+- **Bug Detection Screenshots:** The 4 ASan error screenshots (double-free, overflow, stack-overflow, use-after-free) can be found in the `docs/images/` directory.
+- **Performance Charts:** The comparison bar chart (C1 & C2) is located at `docs/figures/overhead_bar.png`.
+- **Data Tables:** The summarized Mean ± SD tables are in `docs/results_tables.md`.
+- **Analysis:** The explanation for data discrepancies is in `docs/analysis_discrepancies.md`.
 ## Environment Requirements
 > This project can be built on macOS / Linux.
 
