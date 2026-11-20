@@ -84,6 +84,7 @@ During the initial verification, we encountered two major environment-specific i
 *   **Analysis:** Wrote `docs/analysis_discrepancies.md` explaining why our data differs from the paper (micro-benchmarks vs. SPEC, RSS vs. shadow memory, and the two platforms: bug demos on macOS, performance on WSL2).
 *   **Raw Logs:** Restored and formatted the raw performance test logs (`results/logs/log_perf_3runs.txt`) and stack memory logs (`results/logs/log_stack.txt`).
 *   **Repository Structure:** Updated `README.md` to explicitly list the locations of artifacts and bug detection screenshots. Verified that 4 ASan bug screenshots are stored in `docs/images/`.
+*   **Final Report:** Wrote `docs/report.pdf` (6 pages) consolidating the introduction, the ASan background, the methodology, the three results sections, the analysis of discrepancies and the conclusion.
 
 ### 2. Final Review & Release
 *   Verified that the entire pipeline runs smoothly from a clean state.

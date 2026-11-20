@@ -33,6 +33,7 @@ AddressSanitizer ATC 2012 paper.
 - List of modified files: `Makefile`, `scripts/`, `experiments/perf/heap.c`
 
 ## Artifacts and Screenshots
+- **Final report:** `docs/report.pdf` (6 pages) and its editable source `docs/report.docx`.
 - **Bug detection screenshots:** four ASan reports in `docs/images/`
   (double-free, heap overflow, stack overflow, use-after-free).
 - **Comparison chart:** `docs/figures/overhead_bar.png` (paper vs ours, C1 and C2).
