@@ -1,0 +1,15 @@
+[Stack Probe Test Log]
+Testing C3 (Stack Memory Impact)
+Environment: macOS (Apple Silicon)
+
+Executing experiments/perf/stack_probe.c ...
+
+--- Results ---
+Mode: base
+VmStk: 132 KB
+
+Mode: asan
+VmStk: 132 KB
+
+[Conclusion]
+ASan instrumentation does not significantly alter stack memory usage (+0.0%), which validates Claim C3 from the original paper.

@@ -1,0 +1,43 @@
+[Performance Test Log - 3 Runs Raw Data]
+Environment: macOS (Apple Silicon)
+
+Run 1
+--- timing.csv ---
+loop, base, 0.183, 11936.0
+loop, asan, 0.1851, 11948.0
+matrix, base, 0.0296, 11940.0
+matrix, asan, 0.0634, 11844.0
+sort, base, 0.1097, 11776.0
+sort, asan, 0.1933, 14072.0
+
+--- heap.csv ---
+run 1: base 0.0293s, base_rss 34208.0kb, asan 0.0569s, asan_rss 115892.0kb
+
+Run 2
+
+--- timing.csv ---
+loop, base, 0.1785, 11896.0
+loop, asan, 0.1846, 11936.0
+matrix, base, 0.027, 11912.0
+matrix, asan, 0.0633, 11948.0
+sort, base, 0.1043, 11956.0
+sort, asan, 0.1363, 13528.0
+
+--- heap.csv ---
+run 2: base 0.0274s, base_rss 34208.0kb, asan 0.1847s, asan_rss 115968.0kb
+
+Run 3
+
+--- timing.csv ---
+loop, base, 0.1769, 11912.0
+loop, asan, 0.2177, 11844.0
+matrix, base, 0.042, 11940.0
+matrix, asan, 0.074, 11776.0
+sort, base, 0.1085, 11828.0
+sort, asan, 0.135, 13560.0
+
+--- heap.csv ---
+run 3: base 0.0523s, base_rss 34212.0kb, asan 0.1081s, asan_rss 115984.0kb
+
+Summary
+Calculated Mean ± SD for C1 and C2 as presented in docs/results_tables.md.
