@@ -1,64 +1,91 @@
-import pandas as pd
+"""Build the C1/C2 comparison chart from results/timing.csv and results/heap.csv."""
+import csv
+import os
+import statistics as st
+
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 
-os.makedirs('../docs/figures', exist_ok=True)
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RES = os.path.join(ROOT, "results")
+OUT = os.path.join(ROOT, "docs", "figures")
+os.makedirs(OUT, exist_ok=True)
 
-df_timing = pd.read_csv('../results/timing.csv')
-df_heap = pd.read_csv('../results/heap.csv') 
 
-time_overhead = df_timing.groupby('run').apply(
-    lambda x: x[x['mode']=='asan']['seconds'].mean() / x[x['mode']=='base']['seconds'].mean()
-).reset_index(drop=True)
+def load_timing():
+    rows = []
+    with open(os.path.join(RES, "timing.csv")) as f:
+        for r in csv.DictReader(f):
+            rows.append(r)
+    return rows
 
-c1_mean = time_overhead.mean()
-c1_std = time_overhead.std()
 
-mem_overhead = df_heap['asan_rss_kb'] / df_heap['base_rss_kb']
+def mean_time(rows, prog, mode):
+    vals = [float(r["seconds"]) for r in rows if r["program"] == prog and r["mode"] == mode]
+    return st.mean(vals)
 
-c2_mean = mem_overhead.mean()
-c2_std = mem_overhead.std()
 
-labels = ['C1 (Time Overhead)', 'C2 (Memory Overhead)']
+def main():
+    rows = load_timing()
+    progs = sorted({r["program"] for r in rows})
 
-paper_means = [1.5, 2.0] 
-paper_stds = [0, 0] 
+    per_bench = []
+    for p in progs:
+        base = mean_time(rows, p, "base")
+        asan = mean_time(rows, p, "asan")
+        per_bench.append(asan / base)
 
-our_means = [c1_mean, c2_mean]
-our_stds = [c1_std, c2_std]
+    c1 = st.mean(per_bench)
+    c1_sd = st.pstdev(per_bench)
 
-x = np.arange(len(labels))
-width = 0.35
+    heap_path = os.path.join(RES, "heap.csv")
+    ratios = []
+    if os.path.exists(heap_path):
+        with open(heap_path) as f:
+            for r in csv.DictReader(f):
+                ratios.append(float(r["asan_rss_kb"]) / float(r["base_rss_kb"]))
+    c2 = st.mean(ratios) if ratios else float("nan")
+    c2_sd = st.pstdev(ratios) if len(ratios) > 1 else 0.0
 
-fig, ax = plt.subplots(figsize=(8, 6))
+    labels = ["C1 runtime\n(slowdown multiplier)", "C2 memory\n(RSS multiplier)"]
+    paper = [1.73, 3.37]
+    ours = [c1, c2]
+    errs = [c1_sd, c2_sd]
 
-rects1 = ax.bar(x - width/2, paper_means, width, label='Paper', color='lightgray')
+    x = np.arange(len(labels))
+    width = 0.34
 
-rects2 = ax.bar(x + width/2, our_means, width, yerr=our_stds, label='Ours (Mean ± SD)', color='skyblue', capsize=5)
+    fig, ax = plt.subplots(figsize=(7.2, 4.6))
+    b1 = ax.bar(x - width / 2, paper, width, label="Paper (ATC 2012)", color="#b0b0b0")
+    b2 = ax.bar(x + width / 2, ours, width, yerr=errs, capsize=5,
+                label="Ours (mean ± SD)", color="#4c78a8")
 
-ax.set_ylabel('Overhead Multiplier (Higher is worse)')
-ax.set_title('Performance Overhead: Paper vs Ours')
-ax.set_xticks(x)
-ax.set_xticklabels(labels)
-ax.legend()
+    for bars, vals in ((b1, paper), (b2, ours)):
+        for rect, v in zip(bars, vals):
+            ax.annotate("%.2fx" % v, xy=(rect.get_x() + rect.get_width() / 2, v),
+                        xytext=(0, 4), textcoords="offset points",
+                        ha="center", va="bottom", fontsize=9)
 
-def autolabel(rects, is_paper=False):
-    for rect in rects:
-        height = rect.get_height()
-        label_text = f'{height:.2f}' if is_paper else f'{height:.2f}±{our_stds[rects.index(rect)]:.2f}'
-        ax.annotate(label_text,
-                    xy=(rect.get_x() + rect.get_width() / 2, height),
-                    xytext=(0, 3),
-                    textcoords="offset points",
-                    ha='center', va='bottom', fontsize=9)
+    ax.set_ylabel("Overhead multiplier (higher is worse)")
+    ax.set_title("ASan overhead: paper vs our reproduction")
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.set_ylim(0, 4.2)
+    ax.legend(frameon=False)
+    ax.spines[["top", "right"]].set_visible(False)
 
-autolabel(rects1, is_paper=True)
-autolabel(rects2, is_paper=False)
+    fig.tight_layout()
+    out = os.path.join(OUT, "overhead_bar.png")
+    fig.savefig(out, dpi=220)
+    plt.close(fig)
 
-fig.tight_layout()
+    print("C1 (runtime): %.2fx ± %.2f  -> %.0f%% slowdown (paper 73%%)"
+          % (c1, c1_sd, (c1 - 1) * 100))
+    print("C2 (memory):  %.2fx ± %.2f  (paper 3.37x)" % (c2, c2_sd))
+    print("saved", out)
 
-plt.savefig('../docs/figures/overhead_bar.png', dpi=300)
-print("图表已生成并保存至 docs/figures/overhead_bar.png")
-print(f"C1 平均开销: {c1_mean:.2f}x, 标准差: {c1_std:.2f}")
-print(f"C2 平均开销: {c2_mean:.2f}x, 标准差: {c2_std:.2f}")
+
+if __name__ == "__main__":
+    main()

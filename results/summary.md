@@ -4,18 +4,18 @@ Wall time and peak RSS, averaged over the runs in `results/timing.csv`.
 
 | program | time native (s) | time ASan (s) | slowdown | memory native (MB) | memory ASan (MB) | memory ratio |
 |---|---|---|---|---|---|---|
-| loop | 0.18 Â± 0.00 | 0.20 Â± 0.02 | +9% | 11.6 Â± 0.0 | 11.6 Â± 0.0 | 1.00x |
-| matrix | 0.03 Â± 0.01 | 0.07 Â± 0.01 | +104% | 11.7 Â± 0.0 | 11.6 Â± 0.1 | 0.99x |
-| sort | 0.11 Â± 0.00 | 0.15 Â± 0.03 | +44% | 11.6 Â± 0.1 | 13.4 Â± 0.2 | 1.16x |
+| loop | 0.18 ¡À 0.00 | 0.20 ¡À 0.02 | +9% | 11.6 ¡À 0.0 | 11.6 ¡À 0.0 | 1.00x |
+| matrix | 0.03 ¡À 0.01 | 0.07 ¡À 0.01 | +104% | 11.7 ¡À 0.0 | 11.6 ¡À 0.1 | 0.99x |
+| sort | 0.11 ¡À 0.00 | 0.15 ¡À 0.03 | +44% | 11.6 ¡À 0.1 | 13.4 ¡À 0.2 | 1.16x |
 
 **Average slowdown: +52%** (paper: 73%).
 **Average memory ratio: 1.05x** (paper: 3.37x).
 
 ## Heap-churn experiment (Claim 2)
 
-`heap` allocates and frees 4 x 32 MB, so a large part of the freed
-memory stays in ASan's quarantine and the shadow for the touched
-pages becomes resident.
+`heap` allocates, touches and frees three 32 MB blocks, so a large
+part of the freed memory stays in ASan's quarantine and the shadow
+for the touched pages becomes resident.
 
 | run | native RSS (MB) | ASan RSS (MB) | ratio |
 |---|---|---|---|

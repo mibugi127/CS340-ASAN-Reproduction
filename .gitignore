@@ -23,5 +23,6 @@ experiments/*.raw
 experiments/*.tar.gz
 
 *.pdf
+!docs/report.pdf
 *.img
 *.qcow2
